@@ -1,4 +1,4 @@
-# about
+# About
 
 ## About JS Girls
 
