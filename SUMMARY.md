@@ -1,6 +1,6 @@
 # Table of contents
 
-* [about](about.md)
+* [about](README.md)
 * [API Reference](api-reference.md)
 * [Table of Contents](docs/README.md)
   * [Level 1](docs/level1/README.md)
