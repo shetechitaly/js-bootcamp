@@ -7,4 +7,3 @@
 * [Webstorm](https://www.jetbrains.com/webstorm/) Commercial \(Linux, Mac, Win\)
 * [Cloud9](https://c9.io/) Free online editor \(any modern browser\)
 * [Nitrous](https://www.nitrous.io/) Free online editor \(any modern browser\)
-
