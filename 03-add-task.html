@@ -12,7 +12,9 @@
     </ul>
     <script>
       var listElement = document.querySelector('#task-list');
-      listElement.innerHTML = listElement.innerHTML + '<li>Disco dance</li>';
+      var element = document.createElement('li');
+      element.innerHTML = 'Disco dance';
+      listElement.appendChild(element);
     </script>
   </body>
 </html>

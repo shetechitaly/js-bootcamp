@@ -16,10 +16,12 @@
 
       var updateList = function(items) {
         var listElement = document.querySelector('#task-list');
-        listElement.innerHTML = '';
+        while (listElement.firstChild) listElement.removeChild(listElement.firstChild);
 
         items.forEach(function(item) {
-          listElement.innerHTML += '<li>' + item + '</li>';
+          var element = document.createElement('li');
+          element.innerHTML = item;
+          listElement.appendChild(element);
         });
       }
 

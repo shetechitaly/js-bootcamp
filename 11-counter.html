@@ -4,14 +4,14 @@
     <meta charset="utf-8">
     <title>Awesome Tasks</title>
     <link href="styles/app.css" rel="stylesheet">
-    <script id="item-template" type="text/html">
-      <li data-completed="_COMPLETED_" class="list-group-item">
-        <span onclick="toggleStatus(event)">_TEXT_</span>
-        <button onclick="removeItem(event)" class="close">×</button>
-      </li>
-    </script>
   </head>
   <body>
+    <template id="item-template">
+      <li data-completed=false class="list-group-item">
+        <span onclick="toggleStatus(event)"></span>
+        <button onclick="removeItem(event)" class="close">×</button>
+      </li>
+    </template>
     <h2>Awesome Tasks</h2>
     <div class="panel panel-default">
       <form onsubmit="createNew(event)" class="panel-heading">
@@ -29,9 +29,10 @@
       </div>
     </div>
     <script>
+
       var loadList = function() {
         if (localStorage.listItems) return JSON.parse(localStorage.listItems);
-
+      
         return [
           { text: 'Buy coffee',  completed: true  },
           { text: 'Buy milk',    completed: false },
@@ -41,21 +42,21 @@
 
       var updateList = function(items, save) {
         var listElement = document.querySelector('#task-list');
-        listElement.innerHTML = '';
+        while (listElement.firstChild) listElement.removeChild(listElement.firstChild);
 
         items.forEach(function(item) {
-          listElement.innerHTML += renderItem(item);
+          listElement.appendChild(renderItem(item));
         });
-
         if (save) localStorage.listItems = JSON.stringify(items);
+        updateCounters();
       }
-
+      
       var renderItem = function(item) {
-        var template = document.querySelector('#item-template').innerHTML;
-
-        return template
-          .replace('_TEXT_', item.text)
-          .replace('_COMPLETED_', item.completed);
+        var template = document.querySelector('#item-template');
+        var clone = template.content.cloneNode(true);
+        clone.querySelector("span").innerText = item.text;
+        clone.querySelector("li").setAttribute("data-completed", item.completed);
+        return clone;
       }
 
       var createNew = function(event) {
@@ -74,29 +75,37 @@
 
       var removeItem = function(event) {
         var clickedItemText = event.target.previousElementSibling.innerHTML;
-
+      
         listItems = listItems.filter(function(item) {
           return clickedItemText != item.text;
         });
-
+      
         updateList(listItems, true);
       }
 
       var toggleStatus = function(event) {
         var clickedItemText = event.target.innerHTML;
-
+      
         listItems.forEach(function(item) {
           if (clickedItemText == item.text) {
             item.completed = !item.completed;
           }
         });
+      
+        updateList(listItems, true);
+      }
 
+      var clearCompleted = function() {
+        listItems = listItems.filter(function(item) {
+          return !item.completed;
+        });
+      
         updateList(listItems, true);
       }
 
       var filterItems = function(status) {
         var itemsToShow = [];
-
+      
         if (status == 'completed') {
           itemsToShow = listItems.filter(function(item) {
             return item.completed;
@@ -108,18 +117,22 @@
         } else {
           itemsToShow = listItems;
         }
-
+      
         updateList(itemsToShow);
       }
 
-      var clearCompleted = function() {
-        listItems = listItems.filter(function(item) {
-          return !item.completed;
+      var updateCounters = function() {
+        var completedCount = 0;
+      
+        listItems.forEach(function(item) {
+          if (item.completed) completedCount++;
         });
-
-        updateList(listItems, true);
+      
+        document.querySelector('.filter-all').dataset.count = listItems.length;
+        document.querySelector('.filter-active').dataset.count = listItems.length - completedCount;
+        document.querySelector('.filter-completed').dataset.count = completedCount;
       }
-
+      
       var listItems = loadList();
 
       updateList(listItems);
