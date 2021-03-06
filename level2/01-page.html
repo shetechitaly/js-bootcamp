@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title></title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+</head>
+
+<body>
+  <div class="container">
+    <div id="posts"></div>
+  <div>
+</body>
+<script>
+  function drawElement(post) {
+    var postContainer = document.querySelector('#posts');
+    postContainer.innerHTML +=
+      '<div class="card card-default">' +
+        '<div class="card-header">' +
+          post.title +
+        '</div>' +
+        '<div class="card-body">' +
+          post.body +
+        '</div>' +
+      '</div>';
+  }
+  var postToAdd = { title: 'new post', body: 'This is a message..' };
+  drawElement(postToAdd);
+</script>
+</html>

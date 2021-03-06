@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title></title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <script type="text/javascript" src="utils/utils.js"></script>
+</head>
+
+<body>
+    <button class="btn btn-default btn-large" type="button" id="refresh-button"
+        style="position: fixed; top: 0; right: 0;">
+  <span class="glyphicon glyphicon-refresh" />
+</button>
+  <div class="container">
+    <div id="posts"></div>
+  <div>
+    <hr />
+    <form class="form-horizontal" id="post-form">
+      <div class="form-group">
+        <label for="post-title" class="control-label">Post Title</label>
+        <input type="text" class="form-control" id="post-title" placeholder="A new post" />
+      </div>
+      <div class="form-group">
+        <label for="post-body" class="control-label">Post Content</label>
+        <textarea type="text" class="form-control" id="post-body" placeholder="A new Body"></textarea>
+      </div>
+      <button type="submit" class="btn btn-default">Post</button>
+    </form>
+</body>
+<script>
+  function drawElement(post) {
+    var postContainer = document.querySelector('#posts');
+    postContainer.innerHTML +=
+      '<div class="panel panel-default">' +
+        '<div class="panel-heading">' +
+          post.title +
+        '</div>' +
+        '<div class="panel-body">' +
+          post.body +
+        '</div>' +
+      '</div>';
+  }
+  
+  fetch(CHAT_URI)
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(posts) {
+    toArray(posts).forEach(function(postToAdd) {
+        drawElement(postToAdd);
+      });
+  });
+
+
+  var form = document.querySelector('#post-form');
+  
+  form.onsubmit = function(e) {
+    e.preventDefault();
+    var titleElement = document.querySelector('#post-title');
+    var bodyElement = document.querySelector('#post-body');
+
+    clearValidation(titleElement);
+    clearValidation(bodyElement);
+
+    if (isDataValid(titleElement.value) && isDataValid(bodyElement.value)) {
+      createPost(titleElement, bodyElement);
+    } else {
+      if (!isDataValid(titleElement.value)) {
+        showError(titleElement);
+      }
+      if (!isDataValid(bodyElement.value)) {
+        showError(bodyElement);
+      }
+    }
+  };
+  
+  function createPost(titleElement, bodyElement) {
+    var postObject = { title: titleElement.value, body: bodyElement.value };
+  
+    fetch(CHAT_URI, {
+      method: "POST",
+      body: serialize(postObject)
+    });
+  }
+
+  function clearValidation(element) {
+    element.parentNode.classList.remove('has-error');
+  }
+
+  var MIN_LIMIT = 4;
+  function isDataValid(value) {
+    return value.length > MIN_LIMIT;
+  }
+
+  function showError(element) {
+    element.parentNode.classList.add('has-error');
+  }
+  
+</script>
+</html>

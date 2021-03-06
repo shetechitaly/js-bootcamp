@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title></title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+  <script type="text/javascript" src="utils/utils.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <div id="posts"></div>
+  <div>
+    <hr />
+    <form id="post-form">
+      <div class="form-group">
+        <label for="post-title" class="control-label">Post Title</label>
+        <input type="text" class="form-control" id="post-title" placeholder="A new post" minlength="4"/>
+      </div>
+      <div class="form-group">
+        <label for="post-body" class="control-label">Post Content</label>
+        <textarea type="text" class="form-control" id="post-body" placeholder="A new Body" minlength="4"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">Post</button>
+    </form>
+  </div>
+</body>
+<script>
+  function drawElement(post) {
+    var postContainer = document.querySelector('#posts');
+    postContainer.innerHTML +=
+      '<div class="card card-default">' +
+        '<div class="card-header">' +
+          post.title +
+        '</div>' +
+        '<div class="card-body">' +
+          post.body +
+        '</div>' +
+      '</div>';
+  }
+
+  function refreshMessages() {
+    clearContent();
+    fetch(CHAT_URI)
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(posts) {
+        toArray(posts).forEach(function(postToAdd) {
+          drawElement(postToAdd);
+        });
+      });
+  }
+
+  refreshMessages();
+
+  function clearContent() {
+    var postContainer = document.querySelector('#posts');
+    postContainer.innerHTML = '';
+  }
+  
+  var form = document.querySelector('#post-form');
+  form.onsubmit = function(e) {
+    e.preventDefault();
+    var titleElement = document.querySelector('#post-title');
+    var bodyElement = document.querySelector('#post-body');
+    createPost(title, body);
+  };
+
+  function createPost(title, body) {
+    var postObject = { title: title.value, body: body.value };
+    fetch(CHAT_URI, {
+      method: "POST",
+      body: serialize(postObject)
+    });
+  }
+  
+</script>
+</html>
