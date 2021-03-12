@@ -57,7 +57,7 @@
         var template = document.querySelector('#item-template');
         var clone = template.content.cloneNode(true);
         clone.querySelector("span").innerText = item.text;
-        clone.querySelector("li").setAttribute("data-completed", false);
+        clone.querySelector("li").setAttribute("data-completed", item.completed);
 
         return clone;
       }
