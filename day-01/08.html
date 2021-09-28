@@ -35,13 +35,6 @@
         </div>
     </div>
     <script>
-      const buttons = {
-  btn_all: document.getElementsByClassName("filter filter-all")[0],
-  btn_active: document.getElementsByClassName("filter filter-active")[0],
-  btn_completed: document.getElementsByClassName("filter filter-completed")[0],
-  btn_xs: document.getElementsByClassName("btn btn-default btn-xs")[0],
-}
-
 
 const loadList = () => {
   if (localStorage.listItems) return JSON.parse(localStorage.listItems);
