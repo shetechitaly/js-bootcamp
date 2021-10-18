@@ -72,10 +72,10 @@
         updateList(listItems, true);
       }
 
-      var toggleStatus = function(event) {
+      const toggleStatus = (event) => {
         var clickedItemText = event.target.innerHTML;
 
-        listItems.forEach(function(item) {
+        listItems.forEach((item) => {
           if (clickedItemText == item.text) {
             item.completed = !item.completed;
           }
