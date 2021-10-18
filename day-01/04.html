@@ -23,13 +23,8 @@
     <script>
       let listItems = ['Buy coffee', 'Buy milk', 'Disco dance'];
 
-<<<<<<< HEAD
       const updateList = (items) => {
         let listElement = document.querySelector("#task-list");
-=======
-      var updateList = (items) => {
-        var listElement = document.querySelector("#task-list");
->>>>>>> fix-: Put back var where I think it makes sense
         while (listElement.firstChild) listElement.removeChild(listElement.firstChild);
 
         items.forEach((item) => {
