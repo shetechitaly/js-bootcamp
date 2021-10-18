@@ -32,7 +32,7 @@
         });
       }
 
-      var renderItem = (item) => {
+      const renderItem = (item) => {
         const template = document.getElementById("item-template");
         var instance = document.importNode(template.content, true);
         instance.querySelector(".list-group-item > span").innerText = item;
@@ -53,7 +53,7 @@
         updateList(listItems);
       }
 
-      var removeItem = (event) => {
+      const removeItem = (event) => {
         const clickedItemText = event.target.previousElementSibling.innerHTML;
         listItems = listItems.filter((item) => clickedItemText != item);
         updateList(listItems, true);
