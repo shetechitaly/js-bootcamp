@@ -92,17 +92,13 @@
         updateList(listItems, true);
       }
 
-      var filterItems = function(status) {
-        var itemsToShow = [];
+      const filterItems = (status) => {
+        let itemsToShow = [];
 
-        if (status == 'completed') {
-          itemsToShow = listItems.filter(function(item) {
-            return item.completed;
-          });
-        } else if (status == 'active') {
-          itemsToShow = listItems.filter(function(item) {
-            return !item.completed;
-          });
+        if (status == "completed") {
+          itemsToShow = listItems.filter((item) => item.completed);
+        } else if (status == "active") {
+          itemsToShow = listItems.filter((item) => !item.completed);
         } else {
           itemsToShow = listItems;
         }
@@ -110,10 +106,8 @@
         updateList(itemsToShow);
       }
 
-      var clearCompleted = function() {
-        listItems = listItems.filter(function(item) {
-          return !item.completed;
-        });
+      const clearCompleted = function() {
+        listItems = listItems.filter((item) => !item.completed);
 
         updateList(listItems, true);
       }
