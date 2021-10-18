@@ -4,14 +4,14 @@
     <meta charset="utf-8">
     <title>Awesome Tasks</title>
     <link href="styles/app.css" rel="stylesheet">
-    <script id="item-template" type="text/html">
-      <li class="list-group-item">
-        <span>_TEXT_</span>
-        <button class="close" onclick="removeItem(event)">×</button>
-      </li>
-    </script>
   </head>
   <body>
+    <template id="item-template">
+      <li data-completed="" class="list-group-item">
+        <span></span>
+        <button onclick="removeItem(event)" class="close">×</button>
+      </li>
+    </template>
     <h2>Awesome Tasks</h2>
     <div class="panel panel-default">
       <form onsubmit="createNew(event)" class="panel-heading">
@@ -24,24 +24,25 @@
       let listItems = ['Buy coffee', 'Buy milk', 'Disco dance'];
 
       const updateList = (items) => {
-        let listElement = document.querySelector('#task-list');
-        listElement.innerHTML = '';
+        let listElement = document.querySelector("#task-list");
+        while (listElement.firstChild) listElement.removeChild(listElement.firstChild);
 
         items.forEach((item) => {
-          listElement.innerHTML += renderItem(item);
+          listElement.appendChild(renderItem(item));
         });
       }
 
-      var renderItem = function(item) {
-        var template = document.querySelector('#item-template').innerHTML;
-
-        return template.replace('_TEXT_', item);
+      var renderItem = (item) => {
+        const template = document.getElementById("item-template");
+        const instance = document.importNode(template.content, true);
+        instance.querySelector(".list-group-item > span").innerText = item;
+        return instance;
       }
 
       const createNew = (event) => {
         event.preventDefault();
 
-        const newItemElement = document.querySelector('#new-item');
+        const newItemElement = document.querySelector("#new-item");
         let newItemValue = newItemElement.value.trim();
 
         if (!newItemValue) return;
@@ -52,15 +53,11 @@
         updateList(listItems);
       }
 
-      var removeItem = function(event) {
-        var clickedItemText = event.target.previousElementSibling.innerHTML;
-
-        listItems = listItems.filter(function(itemText) {
-          return clickedItemText != itemText;
-        });
-
-        updateList(listItems);
-      }
+      var removeItem = (event) => {
+        const clickedItemText = event.target.previousElementSibling.innerHTML;
+        listItems = listItems.filter((item) => clickedItemText != item);
+        updateList(listItems, true);
+      };
 
       updateList(listItems);
     </script>
