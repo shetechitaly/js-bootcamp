@@ -39,11 +39,11 @@
         ];
       }
 
-      var updateList = function(items, save) {
+      const updateList = (items, save) => {
         var listElement = document.querySelector('#task-list');
         listElement.innerHTML = '';
 
-        items.forEach(function(item) {
+        items.forEach((item) => {
           listElement.innerHTML += renderItem(item);
         });
 

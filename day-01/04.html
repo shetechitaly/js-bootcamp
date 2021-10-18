@@ -23,11 +23,11 @@
     <script>
       var listItems = ['Buy coffee', 'Buy milk', 'Disco dance'];
 
-      var updateList = function(items) {
+      const updateList = (items) => {
         var listElement = document.querySelector('#task-list');
         listElement.innerHTML = '';
 
-        items.forEach(function(item) {
+        items.forEach((item) => {
           listElement.innerHTML += renderItem(item);
         });
       }
