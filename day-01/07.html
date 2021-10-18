@@ -58,16 +58,16 @@
           .replace('_COMPLETED_', item.completed);
       }
 
-      var createNew = function(event) {
+      var createNew = (event) => {
         event.preventDefault();
 
-        var newItemElement = document.querySelector('#new-item');
+        const newItemElement = document.querySelector('#new-item');
         var newItemValue = newItemElement.value.trim();
 
         if (!newItemValue) return;
 
         listItems.push({ text: newItemValue, completed: false });
-        newItemElement.value = '';
+        newItemElement.value = "";
 
         updateList(listItems, true);
       }

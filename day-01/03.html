@@ -23,16 +23,16 @@
         });
       }
 
-      var createNew = function(event) {
+      const createNew = (event) => {
         event.preventDefault();
 
-        var newItemElement = document.querySelector('#new-item');
+        const newItemElement = document.querySelector('#new-item');
         var newItemValue = newItemElement.value.trim();
 
         if (!newItemValue) return;
 
         listItems.push(newItemValue);
-        newItemElement.value = '';
+        newItemElement.value = "";
 
         updateList(listItems);
       }
