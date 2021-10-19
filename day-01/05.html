@@ -21,14 +21,14 @@
       <ul id="task-list" class="list-group"></ul>
     </div>
     <script>
-      var listItems = [
+      let listItems = [
         { text: 'Buy coffee',  completed: true  },
         { text: 'Buy milk',    completed: false },
         { text: 'Disco dance', completed: false }
       ];
 
       const updateList = (items) => {
-        var listElement = document.querySelector('#task-list');
+        let listElement = document.querySelector('#task-list');
         listElement.innerHTML = '';
 
         items.forEach((item) => {
