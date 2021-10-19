@@ -48,7 +48,7 @@
         event.preventDefault();
 
         var newItemElement = document.querySelector('#new-item');
-        const newItemValue = newItemElement.value.trim();
+        let newItemValue = newItemElement.value.trim();
 
         if (!newItemValue) return;
 
