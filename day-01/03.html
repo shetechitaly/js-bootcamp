@@ -23,11 +23,11 @@
         });
       }
 
-      const createNew = function(event) {
+      var createNew = function(event) {
         event.preventDefault();
 
-        const newItemElement = document.querySelector('#new-item');
-        let newItemValue = newItemElement.value.trim();
+        var newItemElement = document.querySelector('#new-item');
+        var newItemValue = newItemElement.value.trim();
 
         if (!newItemValue) return;
 
