@@ -73,7 +73,7 @@
       }
 
       const toggleStatus = (event) => {
-        var clickedItemText = event.target.innerHTML;
+        const clickedItemText = event.target.innerHTML;
 
         listItems.forEach((item) => {
           if (clickedItemText == item.text) {
@@ -84,7 +84,7 @@
         updateList(listItems);
       }
 
-      var listItems = loadList();
+      let listItems = loadList();
 
       updateList(listItems);
     </script>
