@@ -44,7 +44,7 @@
 
       const renderItem = item => {
         const template = document.getElementById("item-template");
-        var instance = document.importNode(template.content, true);
+        let instance = document.importNode(template.content, true);
         instance.querySelector(".list-group-item > span").innerText = item.text;
         instance
           .querySelector(".list-group-item")
