@@ -7,7 +7,7 @@
   </head>
   <body>
     <template id="item-template">
-      <li data-completed="" class="list-group-item">
+      <li data-completed=false class="list-group-item">
         <span onclick="toggleStatus(event)"></span>
         <button onclick="removeItem(event)" class="close">×</button>
       </li>
@@ -53,7 +53,7 @@
       const renderItem = (item) => {
         const template = document.getElementById("item-template");
         let instance = document.importNode(template.content, true);
-        instance.querySelector(".list-group-item > span").innerText = item.text;
+        instance.querySelector("span").innerText = item.text;
         instance
           .querySelector(".list-group-item")
           .setAttribute("data-completed", item.completed);
