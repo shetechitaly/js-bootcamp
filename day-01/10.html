@@ -106,7 +106,7 @@
         updateList(itemsToShow);
       }
 
-      const clearCompleted = function() {
+      const clearCompleted = () => {
         listItems = listItems.filter((item) => !item.completed);
 
         updateList(listItems, true);
