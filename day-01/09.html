@@ -21,7 +21,7 @@
       <ul id="task-list" class="list-group"></ul>
     </div>
     <script>
-      var loadList = function() {
+      const loadList = () => {
         if (localStorage.listItems) return JSON.parse(localStorage.listItems);
 
         return [
