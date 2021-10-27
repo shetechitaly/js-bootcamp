@@ -16,7 +16,7 @@
 
       const updateList = (items) => {
         let listElement = document.querySelector('#task-list');
-        listElement.innerHTML = '';
+        while (listElement.firstChild) listElement.removeChild(listElement.firstChild);
 
         items.forEach((item) => {
           let element = document.createElement('li');
