@@ -19,7 +19,9 @@
         listElement.innerHTML = '';
 
         items.forEach((item) => {
-          listElement.innerHTML += '<li>' + item + '</li>';
+          let element = document.createElement('li');
+          element.innerHTML = item;
+          listElement.appendChild(element);
         });
       }
 

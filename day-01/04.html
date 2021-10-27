@@ -8,13 +8,15 @@
     <h2>Awesome Tasks</h2>
     <ul id="task-list"></ul>
     <script>
-      let listItems = ['Buy coffee', 'Buy milk', 'Disco dance'];
+      const listItems = ['Buy coffee', 'Buy milk', 'Disco dance'];
 
       const updateList = (items) => {
         let listElement = document.querySelector('#task-list');
 
         items.forEach((item) => {
-          listElement.innerHTML += '<li>' + item + '</li>';
+          let element = document.createElement('li');
+          element.innerHTML = item;
+          listElement.appendChild(element);
         });
       }
 
