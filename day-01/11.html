@@ -48,6 +48,8 @@
         });
 
         if (save) localStorage.listItems = JSON.stringify(items);
+
+        updateCounters();
       }
 
       const renderItem = (item) => {
@@ -111,6 +113,17 @@
 
         updateList(listItems, true);
       }
+
+      const updateCounters = () => {
+        let completedCount = 0;
+        listItems.forEach((item) => {
+          if (item.completed) completedCount++;
+        });
+        document.querySelector(".filter-all").dataset.count = listItems.length;
+        document.querySelector(".filter-active").dataset.count =
+          listItems.length - completedCount;
+        document.querySelector(".filter-completed").dataset.count = completedCount;
+      };
 
       let listItems = loadList();
 
