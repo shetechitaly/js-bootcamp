@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Awesome Tasks</title>
+    <link href="styles/app.css" rel="stylesheet">
+  </head>
+  <body>
+    <template id="item-template">
+      <li data-completed=false class="list-group-item">
+        <span onclick="toggleStatus(event)"></span>
+        <button onclick="removeItem(event)" class="close">×</button>
+      </li>
+    </template>
+    <h2>Awesome Tasks</h2>
+    <div class="panel panel-default">
+      <form onsubmit="createNew(event)" class="panel-heading">
+        <input id="new-item" class="form-control" placeholder="Add a new task..." autofocus="autofocus">
+        <button class="btn btn-primary">Add</button>
+      </form>
+      <ul id="task-list" class="list-group"></ul>
+      <div class="panel-footer text-center small">
+        <span>Show:</span>
+        <button onclick="filterItems()" class="filter filter-all">All</button>
+        <button onclick="filterItems('active')" class="filter filter-active">Active</button>
+        <button onclick="filterItems('completed')" class="filter filter-completed">Completed</button>
+        <hr>
+        <button onclick="clearCompleted()" class="btn btn-default btn-xs">Clear completed</button>
+      </div>
+    </div>
+    <script>
+      const loadList = function() {
+        if (localStorage.listItems) return JSON.parse(localStorage.listItems);
+
+        return [
+          { text: 'Buy coffee',  completed: true  },
+          { text: 'Buy milk',    completed: false },
+          { text: 'Disco dance', completed: false }
+        ];
+      }
+
+      const updateList = (items, save) => {
+        let listElement = document.querySelector("#task-list");
+        while (listElement.firstChild) listElement.removeChild(listElement.firstChild);
+
+        items.forEach((item) => {
+          listElement.appendChild(renderItem(item));
+        });
+
+        if (save) localStorage.listItems = JSON.stringify(items);
+      }
+
+      const renderItem = (item) => {
+        const template = document.getElementById("item-template");
+        let instance = document.importNode(template.content, true);
+        instance.querySelector("span").innerText = item.text;
+        instance
+          .querySelector(".list-group-item")
+          .setAttribute("data-completed", item.completed);
+        return instance;
+      }
+
+      const createNew = (event) => {
+        event.preventDefault();
+
+        const newItemElement = document.querySelector("#new-item");
+        let newItemValue = newItemElement.value.trim();
+
+        if (!newItemValue) return;
+
+        listItems.push({ text: newItemValue, completed: false });
+        newItemElement.value = "";
+
+        updateList(listItems, true);
+      }
+
+      const removeItem = (event) => {
+        const clickedItemText = event.target.previousElementSibling.innerHTML;
+        listItems = listItems.filter((item) => clickedItemText != item.text);
+        updateList(listItems, true);
+      }
+
+      const toggleStatus = (event) => {
+        const clickedItemText = event.target.innerHTML;
+
+        listItems.forEach((item) => {
+          if (clickedItemText == item.text) {
+            item.completed = !item.completed;
+          }
+        });
+
+        updateList(listItems, true);
+      }
+
+      const filterItems = (status) => {
+        let itemsToShow = [];
+
+        if (status == "completed") {
+          itemsToShow = listItems.filter((item) => item.completed);
+        } else if (status == "active") {
+          itemsToShow = listItems.filter((item) => !item.completed);
+        } else {
+          itemsToShow = listItems;
+        }
+
+        updateList(itemsToShow);
+      }
+
+      const clearCompleted = () => {
+        listItems = listItems.filter((item) => !item.completed);
+
+        updateList(listItems, true);
+      }
+
+      let listItems = loadList();
+
+      updateList(listItems);
+    </script>
+  </body>
+</html>
