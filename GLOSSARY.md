@@ -6,8 +6,8 @@ _Application Programming Interface_, defines how to interact with a particular p
 #### Array
 A list of values.
 
-#### Callback
-A function passed as argument to – and expected to be called by – another function.
+<!-- #### Callback
+A function passed as argument to – and expected to be called by – another function. -->
 
 #### DOM
 Stands for _Document Object Model_ and is the interface ([**API**](#API)) to access and manipulate an HTML document.
