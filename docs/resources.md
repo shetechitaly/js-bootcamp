@@ -11,6 +11,13 @@
 - [Speaking Javascript](http://speakingjs.com/es5)
 - [Exploring ES6](http://exploringjs.com/)
 
-## Online Courses
+
+## Free Online Courses
+- [TheOdinProject](https://www.theodinproject.com/)
+- [FreeCodeCamp](https://www.freecodecamp.org/)
+
+## Paid Online Courses
 - [Code School](https://www.codeschool.com/learn/javascript)
 - [Codecademy](https://www.codecademy.com/learn/javascript)
+- [Udemy](https://www.udemy.com/)
+- [FrontEndMasters](https://frontendmasters.com/)
